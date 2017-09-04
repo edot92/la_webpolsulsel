@@ -1,0 +1,99 @@
+<template>
+  <div>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="btn btn-lg btn-infoke" @click="gotoback()"><i class="fa fa-2x fa-arrow-circle-left" aria-hidden="true"></i></button>
+          <a class="navbar-brand" href="http://ditlantas.sulsel.polri.go.id/online/">ePolisi</a>
+          <div id="navbar" class="collapse navbar-collapse">
+          </div>
+        </div>
+
+        <!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="row">
+      <div v-html="tempRes"></div>
+    </div>
+    <!-- <div class="embed-responsive embed-responsive-16by9">
+      <iframe class="iframku embed-responsive-item" v-bind:src="src"></iframe>
+    </div> -->
+  </div>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        src: '',
+        tempRes: ''
+      }
+    },
+    created() {
+      const temp = this.$router.app._route.params.srcweb
+      if (temp === '') {
+        alert('param is null')
+        return
+      }
+      var mystring = temp
+      var newchar = '/'
+      mystring = mystring.split('_').join(newchar)
+      this.src = 'http://ditlantas.sulsel.polri.go.id/' + mystring
+      // this.src = 'http://ditlantas.sulsel.polri.go.id/2570-visi.html'
+      console.log(this.src)
+      this.postPage(this.src)
+      // this.src = 'https://www.youtube.com/embed/XGSy3_Czz8k'
+    },
+    methods: {
+      gotoback() {
+        this.$router.back()
+      },
+      postPage(urltarget) {
+        var thisVue = this
+        const param = {
+          url_target: urltarget
+        }
+        this.axios({
+          url: '/sulsel',
+          method: 'post',
+          data: param
+        }).then(res => {
+          var ress = res.data
+          var tempStr = ress.replace(/<ol.*ol>/, 'DELETE')
+          tempStr = tempStr.replace('<nav class="navbar navbar-inverse navbar-sticky dark bootsnav ', '<!--<nav')
+          tempStr = tempStr.replace('</nav>', '</nav>-->DELETE')
+          tempStr = tempStr.replace('<ul class="pager">', ' <!-- ')
+          tempStr = tempStr.replace('<ul class="pager">', ' <!-- ')
+          thisVue.tempRes = tempStr
+        }).catch(err => {
+          console.log(err)
+        })
+      }
+    }
+  }
+
+</script>
+<style scoped>
+  .navbar-brand {
+    float: right !important;
+    font-size: 35px !important;
+  }
+
+  .btn-infoke {
+    color: #fff;
+    background-color: #9e9e9e;
+    border-color: #9e9e9e;
+  }
+  /* .iframku {
+    position: fixed;
+    top: -50px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  } */
+</style>

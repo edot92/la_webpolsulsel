@@ -1,0 +1,99 @@
+<template>
+  <div>
+    <div class="starter-template">
+      <div class="" v-for="(item,index) in menuUtama">
+        <div class="">
+          <div class="col-xs-6 baris">
+            <a @click="hrefKlik(item.url)">
+                        <img style="height: 100%; width: 100%; object-fit: contain" :src="item.img">
+                    </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+    </div>
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted"> </p>
+        <center>2017 © Copyright <a @click="hrefKlik('http://ditlantas.sulsel.polri.go.id')">ditlantas.sulsel.polri.go.id </a> All
+          rights Reserved.</center>
+        <p></p>
+      </div>
+    </footer>
+  </div>
+</template>
+<script type="text/javascript">
+  var menuUtama = [
+    // {
+    //   tittle: 'HOMEPAGE',
+    //   url: '/#/',
+    //   img: 'http://lorempixel.com/300/300/cats/HOMEPAGE'
+    // },
+    {
+      tittle: 'PROFILE',
+      url: '/submenuk-profile',
+      img: '/static/poldasulsel/ICON/02. PROFILE/PROFILE.png'
+    }, {
+      tittle: 'INFORMASI',
+      url: '/submenuk-informasi',
+      img: 'http://lorempixel.com/300/300/cats/INFORMASI'
+    }, {
+      tittle: 'LAYANAN ONLINE',
+      url: '/submenuk-layananonline',
+      img: 'http://lorempixel.com/300/300/cats/ONLINE'
+    }, {
+      tittle: 'PENGADUAN',
+      url: '/pengaduan.html',
+      img: 'http://lorempixel.com/300/300/cats/PENGADUAN'
+    }, {
+      tittle: 'BERITA',
+      url: '/berita',
+      img: 'http://lorempixel.com/300/300/cats/BERITA'
+    }, {
+      tittle: 'GALERY',
+      url: '/gallery',
+      img: 'http://lorempixel.com/300/300/cats/gallery'
+    }
+
+  ]
+
+  export default {
+    data() {
+      return {
+        menuUtama: menuUtama
+      }
+    },
+    methods: {
+      hrefKlik(param) {
+        if (param.indexOf('submenuk') !== -1) {
+          this.$router.push(param)
+          return
+        }
+        var mystring = param
+        var newchar = '_'
+        mystring = mystring.split('/').join(newchar)
+        param = mystring
+        param = '/iframe/' + param
+        this.$router.push(param)
+      }
+    }
+  }
+
+</script>
+<style scoped>
+  .baris {
+    min-height: 100px !important;
+    padding: 0px !important;
+  }
+  /*img {
+    max-width: 100%;
+    max-height: 100%;
+}
+*/
+  /*div {
+	border: 1px solid #ccc;
+}*/
+
+</style>

@@ -1,0 +1,16 @@
+server
+clientview/node_modules
+clientview/.vscode
+clientview/eslintrc.json__
+Hybrid/node_modules
+Hybrid/www
+*.log
+npm-debug.log*
+Hybrid/platforms/android
+Hybrid/platforms/browser
+Hybrid/package-lock.json
+Hybrid/platforms/browser/build/package.zip
+Framework7-Vue
+Hybrid
+clientview
+vue-cordova-demo
